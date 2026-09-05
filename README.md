@@ -1,60 +1,52 @@
 # Wireless Power Transfer Modeling in MATLAB
 
-A coupled-coil wireless-power model using complex impedances and steady-state phasors. The scripts calculate compensation capacitances and branch currents, then explore frequency response and coupling changes. 无线供电稳态建模与参数扫描项目。
+A MATLAB steady-state model of a coupled-coil wireless power transfer (WPT) system using complex impedances and phasor-domain calculations.
 
-**Focus:** circuit modeling · complex impedance · parameter sweeps · MATLAB visualization
+**Technologies:** MATLAB · Circuit Modeling · Complex Impedance · Parameter Analysis · Data Visualization
 
-## Model and files
+## Project Overview
 
-| File | Role |
+The model calculates compensation parameters, branch currents, input/output power, and model efficiency for a coupled-coil WPT circuit. It also explores how operating frequency and magnetic coupling affect system behavior.
+
+## Main Functions
+
+- Compensation-capacitance calculation.
+- Primary/secondary branch-current analysis.
+- Input and load-power calculation.
+- Model-efficiency calculation.
+- Frequency-response sweep.
+- Coupling-coefficient sweep.
+- Reconstructed sinusoidal waveform visualization from phasor results.
+
+## Files
+
+| File | Purpose |
 | --- | --- |
-| [WirelessPowerSystem.m](WirelessPowerSystem.m) | Model class: capacitances, impedances, currents, power, and plots |
-| [main_wireless_power.m](main_wireless_power.m) | Runs the model and frequency/coupling studies |
-| [calculate_parameters.m](calculate_parameters.m) | Standalone parameter calculation and workspace export |
-
-The secondary branch combines its coil impedance with a parallel capacitor/load branch. The input current includes the primary compensation-capacitor current. The model calculates load power from `abs(IL)^2 * RL` and input power from the real part of voltage times conjugate input current.
-
-| Default parameter | Value |
-| --- | --- |
-| Source voltage parameter | 100 V |
-| Operating frequency | 100 kHz |
-| Primary and secondary inductance | 100 µH each |
-| Mutual inductance | 50 µH |
-| Primary and secondary resistance | 0.1 Ω each |
-| Load resistance | 10 Ω |
-
-These are model inputs, not measured hardware specifications.
+| `WirelessPowerSystem.m` | Main model class and plotting methods |
+| `main_wireless_power.m` | Runs model studies and visualizations |
+| `calculate_parameters.m` | Standalone parameter calculation and workspace export |
 
 ## Run
 
-Download or clone the repository, make it the MATLAB current folder, and run:
+Make the repository the MATLAB current folder and run:
 
 ```matlab
 main_wireless_power
 ```
 
-The script calls frequency-response plots, reconstructed sinusoidal waveforms, and a coupling-coefficient sweep. It uses MATLAB graphics features including `yyaxis` and `sgtitle`. A Simulink model is not required for this script; no `.slx` file is included.
-
-For numerical inspection without plots:
+For direct numerical inspection:
 
 ```matlab
 wpt = WirelessPowerSystem();
 [P_in, P_out, efficiency_percent] = wpt.calculatePower();
 ```
 
-To populate the workspace with the separate parameter script:
+## Engineering Scope
 
-```matlab
-calculate_parameters
-```
+This is a steady-state circuit model intended for parameter analysis and visualization. The public repository does not represent a complete switching-converter, control-loop, thermal, or experimentally validated hardware implementation.
 
-## Interpretation and limits
+The frequency and coupling studies are useful for understanding sensitivity to operating conditions and compensation choices before higher-fidelity simulation or experimental work.
 
-- The frequency sweep keeps compensation capacitances fixed. The coupling sweep recalculates them at each coupling value, so it represents retuning.
-- Time-domain curves are sinusoids reconstructed from phasors, not switching transients. The current source uses phasor magnitudes directly as waveform peaks, while its power equations correspond to an RMS convention. Resolve that convention before comparing average waveform power with the numerical power output.
-- Inverter, rectifier, thermal, control-loop, and nonlinear magnetic behavior are not represented. The compensation formula is part of the coursework model and has not been verified against a physical circuit here.
-- MATLAB execution and experimental validation are not claimed by this repository organization. The maintenance update fixes the efficiency-plot marker, which previously used the first return value (input power) instead of the third return value (efficiency).
+## Portfolio
 
-[Project portfolio](https://github.com/chengmiao2005/FPGAfinalproject/blob/main/docs/PORTFOLIO.md) · [File map](docs/FILE_MAP.md)
-
-[Validation record](docs/VALIDATION.md)
+See the [Engineering Portfolio](https://github.com/chengmiao2005/FPGAfinalproject/blob/main/docs/PORTFOLIO.md) for a concise overview of related projects.
