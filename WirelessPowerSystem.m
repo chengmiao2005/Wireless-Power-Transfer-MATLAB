@@ -113,7 +113,8 @@ methods
         subplot(2, 2, 1);
         plot(f_range/1e3, efficiency, 'b-', 'LineWidth', 2);
         hold on;
-        plot(obj.f/1e3, obj.calculatePower(), 'ro', 'MarkerSize', 8, 'LineWidth', 2);
+        [~, ~, efficiency_work] = obj.calculatePower();
+        plot(obj.f/1e3, efficiency_work, 'ro', 'MarkerSize', 8, 'LineWidth', 2);
         xlabel('频率 (kHz)');
         ylabel('效率 (%)');
         title('系统效率 vs 频率');

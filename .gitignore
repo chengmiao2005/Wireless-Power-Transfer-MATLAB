@@ -1,0 +1,9 @@
+build/
+obj_dir/
+*.vcd
+*.fst
+*.vvp
+*.asv
+*.autosave
+*.slxc
+slprj/
